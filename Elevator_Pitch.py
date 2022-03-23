@@ -35,7 +35,7 @@ def main():
 
 
 
-    class mpu6050:
+    class mpu6050:   #initialises sensor readings
 
         # Global Variables
         GRAVITIY_MS2 = 9.80665
@@ -322,8 +322,7 @@ def main():
             accel_log.append(acceleration)
 
 
-            #THE GOD SET UP 
-            #THE GOD SET UP 
+            #Lift calibariton to detect change in acceleration 
 
             if sum(acceleration_count) == 0: 
                 if (acceleration > 0.09 or acceleration < -0.02) and (sum(acceleration_count[-100:]) == 0):
@@ -336,8 +335,7 @@ def main():
                 else: 
                     acceleration_count.append(0)
 
-            #THE GOD SET UP
-            #THE GOD SET UP 
+            #Lift calibartion 
 
 
             
@@ -445,17 +443,8 @@ def main():
                 if stationary:
                     frequency = frequency
                     counter +=1
-
-            # print("this is the count " + str(counter))
-
-            print(recentv)
             
             delay_buffer.pop(0)
-
-                
-        
-            # write code that automatically turn the whole thing off 
-
 
 
             output_buffer, phase_offset = generate_block(block_size, phase_offset, frequency, samplerate)
@@ -471,7 +460,7 @@ def main():
                 print('not dected')
                 sensor_value = 1
 
-            volume = 0.25
+            volume = 0.25. #volume reduction for combine signals 
             echo = volume*(delay_buffer[-sensor_value] + delay_buffer[-int(sensor_value/2)] + delay_buffer[-int(sensor_value/4)] + delay_buffer[-int(sensor_value/8)])
                 
             new_output = 0.5*(delay_buffer[-1] + echo)     
